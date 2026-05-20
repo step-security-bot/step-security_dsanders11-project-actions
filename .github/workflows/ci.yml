@@ -2,14 +2,6 @@ name: CI
 
 on:
   pull_request:
-  workflow_call:
-    secrets:
-      GH_APP_CREDS:
-        required: true
-      PAT:
-        required: true
-  schedule:
-    - cron: '0 22 * * 2'
 
 permissions: {}
 
@@ -48,13 +40,3 @@ jobs:
       - name: Test
         id: npm-ci-test
         run: npm run ci-test
-
-  integration-tests:
-    if: ${{ github.ref == 'refs/heads/main' }}
-    needs: test-typescript
-    uses: ./.github/workflows/integration-tests.yml
-    permissions:
-      contents: read
-    secrets:
-      GH_APP_CREDS: ${{ secrets.GH_APP_CREDS }}
-      PAT: ${{ secrets.PAT }}

@@ -12,7 +12,7 @@ vi.mock('../src/lib');
 // Spy the action's entrypoint
 const addItemActionSpy = vi.spyOn(index, 'addItemAction');
 
-const owner = 'dsanders11';
+const owner = 'step-security';
 const projectNumber = '94';
 const projectId = 'project-id';
 const contentUrl = 'content-url';
@@ -140,7 +140,7 @@ describe('addItemAction', () => {
   });
 
   it('sets assignees after adding', async () => {
-    const assigneeLogins = ['octocat', 'dsanders11'];
+    const assigneeLogins = ['octocat', 'step-security'];
     mockGetInput({
       owner,
       'project-number': projectNumber,

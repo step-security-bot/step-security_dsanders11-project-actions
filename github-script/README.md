@@ -1,6 +1,4 @@
-# `project-actions/github-script`
-
-[![Release](https://img.shields.io/github/v/release/dsanders11/project-actions?color=blue)](https://github.com/dsanders11/project-actions/releases)
+# `step-security/dsanders11-project-actions/github-script`
 
 This action is a fork of
 [`actions/github-script`](https://github.com/actions/github-script) which adds

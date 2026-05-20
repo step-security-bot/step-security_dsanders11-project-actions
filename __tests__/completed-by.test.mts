@@ -21,7 +21,7 @@ const { ProjectNotFoundError } =
 // Spy the action's entrypoint
 const completedByActionSpy = vi.spyOn(index, 'completedByAction');
 
-const owner = 'dsanders11';
+const owner = 'step-security';
 const projectNumber = '94';
 const projectId = 'project-id';
 const itemId = 'item-id';
@@ -155,7 +155,8 @@ describe('completedByAction', () => {
   });
 
   it('sets field value if item completed', async () => {
-    const itemUrl = 'https://github.com/dsanders11/project-actions/pull/2';
+    const itemUrl =
+      'https://github.com/step-security/dsanders11-project-actions/pull/2';
     mockGetInput({
       owner,
       'project-number': projectNumber,
@@ -192,7 +193,8 @@ describe('completedByAction', () => {
   });
 
   it('does not set field value if item not completed', async () => {
-    const itemUrl = 'https://github.com/dsanders11/project-actions/pull/2';
+    const itemUrl =
+      'https://github.com/step-security/dsanders11-project-actions/pull/2';
     mockGetInput({
       owner,
       'project-number': projectNumber,
@@ -226,8 +228,10 @@ describe('completedByAction', () => {
   });
 
   it('does not set field value if not all items completed', async () => {
-    const itemUrl1 = 'https://github.com/dsanders11/project-actions/pull/2';
-    const itemUrl2 = 'https://github.com/dsanders11/project-actions/pull/3';
+    const itemUrl1 =
+      'https://github.com/step-security/dsanders11-project-actions/pull/2';
+    const itemUrl2 =
+      'https://github.com/step-security/dsanders11-project-actions/pull/3';
     mockGetInput({
       owner,
       'project-number': projectNumber,
@@ -267,7 +271,8 @@ describe('completedByAction', () => {
   });
 
   it('handles error while getting linked PR state', async () => {
-    const itemUrl = 'https://github.com/dsanders11/project-actions/pull/2';
+    const itemUrl =
+      'https://github.com/step-security/dsanders11-project-actions/pull/2';
     const errorMessage = 'Generic error';
     mockGetInput({
       owner,

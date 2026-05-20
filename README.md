@@ -2,8 +2,6 @@
 
 # GitHub Project Actions
 
-[![Release](https://img.shields.io/github/v/release/step-security/dsanders11-project-actions?color=blue)](https://github.com/step-security/dsanders11-project-actions/releases)
-
 A collection of actions for automating GitHub projects
 
 ## Authentication
@@ -23,24 +21,24 @@ private repositories the PAT must also have the `repo` scope.
 
 ## Actions
 
-| Action                                             | Description                                             |
-| -------------------------------------------------- | ------------------------------------------------------- |
-| [`project-actions/add-item`](add-item)             | Add an item (issue or pull request) to project          |
-| [`project-actions/archive-item`](archive-item)     | Archive an item on a project                            |
-| [`project-actions/close-project`](close-project)   | Close a project                                         |
-| [`project-actions/completed-by`](completed-by)     | Change item field value when PRs are merged             |
-| [`project-actions/copy-project`](copy-project)     | Copy a project, with support for draft issue templating |
-| [`project-actions/delete-item`](delete-item)       | Delete an item on a project                             |
-| [`project-actions/delete-project`](delete-project) | Delete a project                                        |
-| [`project-actions/edit-item`](edit-item)           | Edit an item on a project                               |
-| [`project-actions/edit-project`](edit-project)     | Edit a project                                          |
-| [`project-actions/find-project`](find-project)     | Find a project                                          |
-| [`project-actions/find-workflow`](find-workflow)   | Find a project workflow                                 |
-| [`project-actions/get-item`](get-item)             | Get an item on a project                                |
-| [`project-actions/get-project`](get-project)       | Get a project                                           |
-| [`project-actions/get-workflow`](get-workflow)     | Get a project workflow                                  |
-| [`project-actions/github-script`](github-script)   | Modify projects programmatically                        |
-| [`project-actions/link-project`](link-project)     | Link a project to a repository or team                  |
+| Action                                                                      | Description                                             |
+| --------------------------------------------------------------------------- | ------------------------------------------------------- |
+| [`step-security/dsanders11-project-actions/add-item`](add-item)             | Add an item (issue or pull request) to project          |
+| [`step-security/dsanders11-project-actions/archive-item`](archive-item)     | Archive an item on a project                            |
+| [`step-security/dsanders11-project-actions/close-project`](close-project)   | Close a project                                         |
+| [`step-security/dsanders11-project-actions/completed-by`](completed-by)     | Change item field value when PRs are merged             |
+| [`step-security/dsanders11-project-actions/copy-project`](copy-project)     | Copy a project, with support for draft issue templating |
+| [`step-security/dsanders11-project-actions/delete-item`](delete-item)       | Delete an item on a project                             |
+| [`step-security/dsanders11-project-actions/delete-project`](delete-project) | Delete a project                                        |
+| [`step-security/dsanders11-project-actions/edit-item`](edit-item)           | Edit an item on a project                               |
+| [`step-security/dsanders11-project-actions/edit-project`](edit-project)     | Edit a project                                          |
+| [`step-security/dsanders11-project-actions/find-project`](find-project)     | Find a project                                          |
+| [`step-security/dsanders11-project-actions/find-workflow`](find-workflow)   | Find a project workflow                                 |
+| [`step-security/dsanders11-project-actions/get-item`](get-item)             | Get an item on a project                                |
+| [`step-security/dsanders11-project-actions/get-project`](get-project)       | Get a project                                           |
+| [`step-security/dsanders11-project-actions/get-workflow`](get-workflow)     | Get a project workflow                                  |
+| [`step-security/dsanders11-project-actions/github-script`](github-script)   | Modify projects programmatically                        |
+| [`step-security/dsanders11-project-actions/link-project`](link-project)     | Link a project to a repository or team                  |
 
 ## License
 

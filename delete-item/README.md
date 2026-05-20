@@ -1,6 +1,4 @@
-# `project-actions/delete-item`
-
-[![Release](https://img.shields.io/github/v/release/dsanders11/project-actions?color=blue)](https://github.com/dsanders11/project-actions/releases)
+# `step-security/dsanders11-project-actions/delete-item`
 
 Delete a GitHub project item
 

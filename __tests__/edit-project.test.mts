@@ -15,7 +15,7 @@ const { ProjectNotFoundError } =
 // Spy the action's entrypoint
 const editProjectActionSpy = vi.spyOn(index, 'editProjectAction');
 
-const owner = 'dsanders11';
+const owner = 'step-security';
 const projectNumber = '94';
 const projectId = 'project-id';
 

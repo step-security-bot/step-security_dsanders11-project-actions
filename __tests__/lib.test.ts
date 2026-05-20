@@ -53,8 +53,9 @@ function mockProjectNotFoundError(): void {
 }
 
 describe('lib', () => {
-  const itemUrl = 'https://github.com/dsanders11/project-actions/issues/1';
-  const owner = 'dsanders11';
+  const itemUrl =
+    'https://github.com/step-security/dsanders11-project-actions/issues/1';
+  const owner = 'step-security';
   const projectId = 'project-id';
   const projectNumber = '41';
   const projectTitle = 'My Cool Project';
@@ -909,7 +910,7 @@ describe('lib', () => {
     it('sets assignees on non-draft issues using replaceActorsForAssignable', async () => {
       const itemId = 'item-id';
       const contentId = 'content-node-id';
-      const assignees = ['octocat', 'dsanders11'];
+      const assignees = ['octocat', 'step-security'];
       const mockOctokit = mockGetOctokit();
       vi.mocked(execCliCommand).mockResolvedValue(
         JSON.stringify({ id: itemId })
@@ -939,7 +940,7 @@ describe('lib', () => {
 
     it('sets assignees on draft issues using updateProjectV2DraftIssue', async () => {
       const itemId = 'DI_draft-issue-id';
-      const assignees = ['octocat', 'dsanders11'];
+      const assignees = ['octocat', 'step-security'];
       const userIds = ['user-id-1', 'user-id-2'];
       const mockOctokit = mockGetOctokit();
       vi.mocked(execCliCommand).mockResolvedValue(
@@ -948,7 +949,7 @@ describe('lib', () => {
       vi.mocked(mockOctokit.graphql)
         // user lookup for 'octocat'
         .mockResolvedValueOnce({ user: { id: userIds[0] } })
-        // user lookup for 'dsanders11'
+        // user lookup for 'step-security'
         .mockResolvedValueOnce({ user: { id: userIds[1] } })
         // updateProjectV2DraftIssue
         .mockResolvedValueOnce({
@@ -1674,7 +1675,7 @@ describe('lib', () => {
   });
 
   describe('linkProjectToRepository', () => {
-    const repository = 'dsanders11/project-actions';
+    const repository = 'step-security/dsanders11-project-actions';
     const repositoryId = 'repository-id';
 
     beforeEach(() => {
@@ -1880,7 +1881,8 @@ describe('lib', () => {
   });
 
   describe('getPullRequestState', () => {
-    const prUrl = 'https://github.com/dsanders11/project-actions/pull/2';
+    const prUrl =
+      'https://github.com/step-security/dsanders11-project-actions/pull/2';
 
     it('returns PR state', async () => {
       vi.mocked(execCliCommand).mockResolvedValue(

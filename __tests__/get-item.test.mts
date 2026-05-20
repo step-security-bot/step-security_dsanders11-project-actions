@@ -15,7 +15,7 @@ const { ProjectNotFoundError } =
 // Spy the action's entrypoint
 const getItemActionSpy = vi.spyOn(index, 'getItemAction');
 
-const owner = 'dsanders11';
+const owner = 'step-security';
 const projectNumber = '94';
 const projectId = 'project-id';
 const item = 'content-url';
@@ -114,13 +114,14 @@ describe('getItemAction', () => {
   });
 
   it('sets output', async () => {
-    const url = 'https://github.com/dsanders11/project-actions/pull/2';
+    const url =
+      'https://github.com/step-security/dsanders11-project-actions/pull/2';
     const contentId = 'content-id';
     const title = 'Pull Request Title';
     const body = 'Pull Request Description';
     const fieldId = 'field-id';
     const fieldValue = 'field-value';
-    const assigneeLogins = ['octocat', 'dsanders11'];
+    const assigneeLogins = ['octocat', 'step-security'];
     mockGetInput({
       owner,
       'project-number': projectNumber,
@@ -162,7 +163,8 @@ describe('getItemAction', () => {
   });
 
   it('handles field with no value set', async () => {
-    const url = 'https://github.com/dsanders11/project-actions/pull/2';
+    const url =
+      'https://github.com/step-security/dsanders11-project-actions/pull/2';
     const contentId = 'content-id';
     const title = 'Pull Request Title';
     const body = 'Pull Request Description';

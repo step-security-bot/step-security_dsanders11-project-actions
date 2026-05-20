@@ -1,0 +1,73 @@
+{
+  "name": "project-actions",
+  "description": "A collection of actions for automating GitHub projects",
+  "version": "2.0.1",
+  "author": "step-security",
+  "private": true,
+  "homepage": "https://github.com/step-security/dsanders11-project-actions",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/step-security/dsanders11-project-actions.git"
+  },
+  "bugs": {
+    "url": "https://github.com/step-security/dsanders11-project-actions/issues"
+  },
+  "type": "module",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "bundle": "npm run format:write && npm run package",
+    "ci-test": "vitest run --coverage --reporter=verbose",
+    "format:write": "oxfmt",
+    "format:check": "oxfmt --check",
+    "lint": "oxlint --type-aware && npm run typecheck",
+    "package:add-item": "rolldown add-item/index.ts --minify --file dist/add-item.js --platform node",
+    "package:archive-item": "rolldown archive-item/index.ts --minify --file dist/archive-item.js --platform node",
+    "package:close-project": "rolldown close-project/index.ts --minify --file dist/close-project.js --platform node",
+    "package:completed-by": "rolldown completed-by/index.ts --minify --file dist/completed-by.js --platform node",
+    "package:copy-project": "rolldown copy-project/index.ts --minify --file dist/copy-project.js --platform node",
+    "package:delete-item": "rolldown delete-item/index.ts --minify --file dist/delete-item.js --platform node",
+    "package:delete-project": "rolldown delete-project/index.ts --minify --file dist/delete-project.js --platform node",
+    "package:edit-item": "rolldown edit-item/index.ts --minify --file dist/edit-item.js --platform node",
+    "package:edit-project": "rolldown edit-project/index.ts --minify --file dist/edit-project.js --platform node",
+    "package:find-project": "rolldown find-project/index.ts --minify --file dist/find-project.js --platform node",
+    "package:find-workflow": "rolldown find-workflow/index.ts --minify --file dist/find-workflow.js --platform node",
+    "package:get-item": "rolldown get-item/index.ts --minify --file dist/get-item.js --platform node",
+    "package:get-project": "rolldown get-project/index.ts --minify --file dist/get-project.js --platform node",
+    "package:get-workflow": "rolldown get-workflow/index.ts --minify --file dist/get-workflow.js --platform node",
+    "package:link-project": "rolldown link-project/index.ts --minify --file dist/link-project.js --platform node",
+    "package:github-script": "rolldown github-script/index.ts --minify --file dist/github-script/index.js --platform node",
+    "package": "npm-run-all \"package:!(watch)\"",
+    "package:watch": "npm run package -- --watch",
+    "test": "vitest run --coverage --reporter=verbose",
+    "typecheck": "tsc --noEmit && tsc --noEmit -p __tests__/tsconfig.json",
+    "all": "npm run format:write && npm run lint && npm run test && npm run package"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@actions/core": "^3.0.0",
+    "@actions/github": "^9.0.0",
+    "@actions/glob": "^0.6.1",
+    "@actions/tool-cache": "^4.0.0",
+    "@octokit/core": "^7.0.6",
+    "@octokit/plugin-paginate-graphql": "^6.0.0",
+    "@octokit/plugin-request-log": "^6.0.0",
+    "@octokit/plugin-retry": "^8.1.0",
+    "axios": "^1.16.0",
+    "mustache": "^4.2.0"
+  },
+  "devDependencies": {
+    "@octokit/types": "^16.0.0",
+    "@types/mustache": "^4.2.6",
+    "@types/node": "^20.19.0",
+    "@vitest/coverage-v8": "^4.1.0",
+    "npm-run-all2": "^8.0.4",
+    "oxfmt": "^0.41.0",
+    "oxlint": "^1.56.0",
+    "oxlint-tsgolint": "^0.17.1",
+    "rolldown": "^1.0.0-rc.10",
+    "typescript": "^5.9.3",
+    "vitest": "^4.1.0"
+  }
+}

@@ -1,6 +1,4 @@
-# `project-actions/link-project`
-
-[![Release](https://img.shields.io/github/v/release/dsanders11/project-actions?color=blue)](https://github.com/dsanders11/project-actions/releases)
+# `step-security/dsanders11-project-actions/link-project`
 
 Link a GitHub project to a repository or team
 

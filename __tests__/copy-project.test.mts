@@ -24,7 +24,7 @@ const { ProjectNotFoundError } =
 // Spy the action's entrypoint
 const copyProjectActionSpy = vi.spyOn(index, 'copyProjectAction');
 
-const owner = 'dsanders11';
+const owner = 'step-security';
 const projectNumber = '94';
 const title = 'New Title';
 const fieldCount = 4;
@@ -170,7 +170,7 @@ describe('copyProjectAction', () => {
   it('can link to repository', async () => {
     const newProjectId = 'project-id-2';
     const newProjectNumber = parseInt(projectNumber) + 1;
-    const repository = 'dsanders11/project-actions';
+    const repository = 'step-security/dsanders11-project-actions';
     mockCopyProject(newProjectId, newProjectNumber);
     mockGetInput({
       owner,

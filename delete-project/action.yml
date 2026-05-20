@@ -1,0 +1,23 @@
+name: Delete Project
+description: Delete a GitHub project
+author: step-security
+
+inputs:
+  token:
+    description: A GitHub access token - either a classic PAT or a GitHub app installation token
+    required: true
+  owner:
+    description: The owner of the project - either an organization or a user
+    required: false
+    default: ${{ github.repository_owner }}
+  project-number:
+    description: The project number from the project's URL
+    required: true
+  fail-if-project-not-found:
+    description: Should the action fail if the project is not found
+    required: false
+    default: true
+
+runs:
+  using: node24
+  main: ../dist/delete-project.js

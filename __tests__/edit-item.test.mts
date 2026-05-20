@@ -15,7 +15,7 @@ const { ProjectNotFoundError } =
 // Spy the action's entrypoint
 const editItemActionSpy = vi.spyOn(index, 'editItemAction');
 
-const owner = 'dsanders11';
+const owner = 'step-security';
 const projectNumber = '94';
 const projectId = 'project-id';
 const item = 'content-url';
@@ -248,7 +248,7 @@ describe('editItemAction', () => {
   });
 
   it('can set assignees', async () => {
-    const assigneeLogins = ['octocat', 'dsanders11'];
+    const assigneeLogins = ['octocat', 'step-security'];
     const currentAssignees = [{ id: 'old-user-id', login: 'old-user' }];
     const contentId = 'content-id';
     mockGetInput({

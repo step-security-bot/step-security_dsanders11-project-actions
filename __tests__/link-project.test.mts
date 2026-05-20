@@ -20,12 +20,12 @@ vi.mock('../src/lib');
 // Spy the action's entrypoint
 const linkProjectActionSpy = vi.spyOn(index, 'linkProjectAction');
 
-const owner = 'dsanders11';
+const owner = 'step-security';
 const projectNumber = '94';
 const projectId = 'project-id';
-const repository = 'dsanders11/project-actions';
+const repository = 'step-security/dsanders11-project-actions';
 const repositoryId = 'bar';
-const team = 'dsanders11-playground-org/maintainers';
+const team = 'step-security/maintainers';
 const teamId = 'baz';
 
 describe('linkProjectAction', () => {

@@ -1,15 +1,13 @@
-# `project-actions/completed-by`
-
-[![Release](https://img.shields.io/github/v/release/dsanders11/project-actions?color=blue)](https://github.com/dsanders11/project-actions/releases)
+# `step-security/dsanders11-project-actions/completed-by`
 
 Change a project field on draft issues when linked pull requests are merged.
 
 This action iterates all draft issues on a project looking for any which have
 lines that follow the format (should be on a line by itself) "Completed by
-https://github.com/dsanders11/project-actions/pull/2". There can be multiple
-such lines. Each linked pull request will be checked, and if they are all
-merged, the `field` input will be updated to `field-value`. For convenience
-`field` defaults to the standard "Status" field.
+https://github.com/owner/repo/pull/2". There can be multiple such lines. Each
+linked pull request will be checked, and if they are all merged, the `field`
+input will be updated to `field-value`. For convenience `field` defaults to the
+standard "Status" field.
 
 ## Inputs
 

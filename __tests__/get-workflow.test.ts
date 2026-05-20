@@ -12,7 +12,7 @@ vi.mock('../src/lib');
 // Spy the action's entrypoint
 const getWorkflowActionSpy = vi.spyOn(index, 'getWorkflowAction');
 
-const owner = 'dsanders11';
+const owner = 'step-security';
 const projectNumber = '94';
 const name = 'workflow-name';
 const projectId = 'project-id';

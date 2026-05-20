@@ -19,7 +19,7 @@ vi.mock('../src/lib.js', async () => {
 // Spy the action's entrypoint
 const deleteProjectActionSpy = vi.spyOn(index, 'deleteProjectAction');
 
-const owner = 'dsanders11';
+const owner = 'step-security';
 const projectNumber = '94';
 
 describe('deleteProjectAction', () => {
