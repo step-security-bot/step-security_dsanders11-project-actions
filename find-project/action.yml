@@ -1,0 +1,53 @@
+name: Find Project
+description: Find a GitHub project
+author: step-security
+
+inputs:
+  token:
+    description: A GitHub access token - either a classic PAT or a GitHub app installation token
+    required: true
+  owner:
+    description: The owner of the project - either an organization or a user
+    required: false
+    default: ${{ github.repository_owner }}
+  title:
+    description: The title of the project to find
+    required: true
+  fail-if-project-not-found:
+    description: Should the action fail if the project is not found
+    required: false
+    default: true
+  include-closed:
+    description: Include closed projects
+    required: false
+    default: false
+  limit:
+    description: Maximum number of projects to fetch
+    required: false
+    default: 30
+
+outputs:
+  id:
+    description: The global ID for the project
+  closed:
+    description: The closed state of the project
+  field-count:
+    description: The number of fields on the project
+  item-count:
+    description: The number of items in the project
+  number:
+    description: The project number of the project
+  public:
+    description: The public visibility of the project
+  readme:
+    description: The readme description of the project
+  description:
+    description: The short description of the project
+  title:
+    description: The title of the project
+  url:
+    description: The URL of the project
+
+runs:
+  using: node24
+  main: ../dist/find-project.js
