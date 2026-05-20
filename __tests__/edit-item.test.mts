@@ -1,0 +1,300 @@
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+
+import * as core from '@actions/core';
+
+import * as index from '../src/edit-item.js';
+import { ItemDetails, editItem, getItem } from '../src/lib.js';
+import { mockGetBooleanInput, mockGetInput } from './utils.js';
+
+vi.mock('@actions/core');
+vi.mock('../src/lib');
+
+const { ProjectNotFoundError } =
+  await vi.importActual<typeof import('../src/lib.js')>('../src/lib');
+
+// Spy the action's entrypoint
+const editItemActionSpy = vi.spyOn(index, 'editItemAction');
+
+const owner = 'dsanders11';
+const projectNumber = '94';
+const projectId = 'project-id';
+const item = 'content-url';
+const itemId = 'item-id';
+
+describe('editItemAction', () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+
+  it('requires the project-number input', async () => {
+    mockGetInput({ owner });
+
+    await index.editItemAction();
+    expect(editItemActionSpy).toHaveReturned();
+
+    expect(core.setFailed).toHaveBeenCalledTimes(1);
+    expect(core.setFailed).toHaveBeenLastCalledWith(
+      'Input required and not supplied: project-number'
+    );
+  });
+
+  it('requires the item input', async () => {
+    mockGetInput({ owner, 'project-number': projectNumber });
+
+    await index.editItemAction();
+    expect(editItemActionSpy).toHaveReturned();
+
+    expect(core.setFailed).toHaveBeenCalledTimes(1);
+    expect(core.setFailed).toHaveBeenLastCalledWith(
+      'Input required and not supplied: item'
+    );
+  });
+
+  it('requires the field-value input if field input set', async () => {
+    mockGetInput({
+      owner,
+      'project-number': projectNumber,
+      item,
+      field: 'Status'
+    });
+
+    await index.editItemAction();
+    expect(editItemActionSpy).toHaveReturned();
+
+    expect(core.setFailed).toHaveBeenCalledTimes(1);
+    expect(core.setFailed).toHaveBeenLastCalledWith(
+      'Input required and not supplied: field-value'
+    );
+  });
+
+  it('requires the field input if field-value input set', async () => {
+    mockGetInput({
+      owner,
+      'project-number': projectNumber,
+      item,
+      'field-value': 'Done'
+    });
+
+    await index.editItemAction();
+    expect(editItemActionSpy).toHaveReturned();
+
+    expect(core.setFailed).toHaveBeenCalledTimes(1);
+    expect(core.setFailed).toHaveBeenLastCalledWith(
+      'Input required and not supplied: field'
+    );
+  });
+
+  it('handles item not found', async () => {
+    mockGetInput({ owner, 'project-number': projectNumber, item });
+    mockGetBooleanInput({ 'fail-if-item-not-found': true });
+    vi.mocked(editItem).mockResolvedValue();
+
+    await index.editItemAction();
+    expect(editItemActionSpy).toHaveReturned();
+
+    expect(core.setFailed).toHaveBeenCalledTimes(1);
+    expect(core.setFailed).toHaveBeenLastCalledWith(`Item not found: ${item}`);
+  });
+
+  it('can ignore item not found', async () => {
+    mockGetInput({ owner, 'project-number': projectNumber, item });
+    mockGetBooleanInput({ 'fail-if-item-not-found': false });
+    vi.mocked(getItem).mockResolvedValue(null);
+
+    await index.editItemAction();
+    expect(editItemActionSpy).toHaveReturned();
+
+    expect(core.setFailed).not.toHaveBeenCalled();
+    expect(core.setOutput).not.toHaveBeenCalled();
+  });
+
+  it('handles project not found', async () => {
+    mockGetInput({ owner, 'project-number': projectNumber, item });
+    vi.mocked(getItem).mockResolvedValue({
+      id: itemId,
+      type: 'PULL_REQUEST'
+    } as ItemDetails);
+    vi.mocked(editItem).mockImplementation(() => {
+      throw new ProjectNotFoundError();
+    });
+
+    await index.editItemAction();
+    expect(editItemActionSpy).toHaveReturned();
+
+    expect(core.setFailed).toHaveBeenCalledTimes(1);
+    expect(core.setFailed).toHaveBeenLastCalledWith('Project not found');
+  });
+
+  it('handles generic errors', async () => {
+    mockGetInput({ owner, 'project-number': projectNumber, item });
+    vi.mocked(editItem).mockImplementation(() => {
+      throw new Error('Server error');
+    });
+
+    await index.editItemAction();
+    expect(editItemActionSpy).toHaveReturned();
+
+    expect(core.setFailed).toHaveBeenCalledTimes(1);
+    expect(core.setFailed).toHaveBeenLastCalledWith('Server error');
+  });
+
+  it('stringifies non-errors', async () => {
+    mockGetInput({ owner, 'project-number': projectNumber, item });
+    vi.mocked(editItem).mockImplementation(() => {
+      throw 42; // oxlint-disable-line no-throw-literal
+    });
+
+    await index.editItemAction();
+    expect(editItemActionSpy).toHaveReturned();
+
+    expect(core.setFailed).toHaveBeenCalledTimes(1);
+    expect(core.setFailed).toHaveBeenLastCalledWith('42');
+  });
+
+  it('cannot edit redacted items', async () => {
+    mockGetInput({
+      owner,
+      'project-number': projectNumber,
+      item,
+      title: 'New Title'
+    });
+    vi.mocked(getItem).mockResolvedValue({
+      type: 'REDACTED'
+    } as ItemDetails);
+
+    await index.editItemAction();
+    expect(editItemActionSpy).toHaveReturned();
+
+    expect(core.setFailed).toHaveBeenCalledTimes(1);
+    expect(core.setFailed).toHaveBeenLastCalledWith(
+      'Cannot edit redacted items'
+    );
+  });
+
+  it('can only set title/body for draft issues', async () => {
+    mockGetInput({
+      owner,
+      'project-number': projectNumber,
+      item,
+      title: 'New Title'
+    });
+    vi.mocked(getItem).mockResolvedValue({
+      type: 'PULL_REQUEST'
+    } as ItemDetails);
+
+    await index.editItemAction();
+    expect(editItemActionSpy).toHaveReturned();
+
+    expect(core.setFailed).toHaveBeenCalledTimes(1);
+    expect(core.setFailed).toHaveBeenLastCalledWith(
+      'Can only set title or body for draft issues'
+    );
+  });
+
+  it('can edit a field', async () => {
+    const field = 'Status';
+    const fieldValue = 'Done';
+    mockGetInput({
+      owner,
+      'project-number': projectNumber,
+      item,
+      field,
+      'field-value': fieldValue
+    });
+    vi.mocked(getItem).mockResolvedValue({
+      id: itemId,
+      type: 'PULL_REQUEST',
+      projectId
+    } as ItemDetails);
+    vi.mocked(editItem).mockResolvedValue();
+
+    await index.editItemAction();
+    expect(editItemActionSpy).toHaveReturned();
+
+    expect(editItem).toHaveBeenCalledWith(projectId, itemId, {
+      field,
+      fieldValue
+    });
+  });
+
+  it('can edit draft issue content', async () => {
+    const title = 'New Title';
+    const body = 'New Body';
+    const contentId = 'content-id';
+    mockGetInput({
+      owner,
+      'project-number': projectNumber,
+      item,
+      title,
+      body
+    });
+    vi.mocked(getItem).mockResolvedValue({
+      id: itemId,
+      type: 'DRAFT_ISSUE',
+      projectId,
+      content: {
+        id: contentId
+      }
+    } as ItemDetails);
+    vi.mocked(editItem).mockResolvedValue();
+
+    await index.editItemAction();
+    expect(editItemActionSpy).toHaveReturned();
+
+    expect(editItem).toHaveBeenCalledWith(projectId, contentId, {
+      title,
+      body
+    });
+  });
+
+  it('can set assignees', async () => {
+    const assigneeLogins = ['octocat', 'dsanders11'];
+    const currentAssignees = [{ id: 'old-user-id', login: 'old-user' }];
+    const contentId = 'content-id';
+    mockGetInput({
+      owner,
+      'project-number': projectNumber,
+      item,
+      assignees: assigneeLogins.join(',')
+    });
+    vi.mocked(getItem).mockResolvedValue({
+      id: itemId,
+      type: 'DRAFT_ISSUE',
+      projectId,
+      content: {
+        id: contentId,
+        assignees: { nodes: currentAssignees }
+      }
+    } as ItemDetails);
+    vi.mocked(editItem).mockResolvedValue();
+
+    await index.editItemAction();
+    expect(editItemActionSpy).toHaveReturned();
+
+    expect(editItem).toHaveBeenCalledWith(
+      projectId,
+      contentId,
+      expect.objectContaining({
+        assignees: assigneeLogins
+      })
+    );
+    expect(core.setFailed).not.toHaveBeenCalled();
+  });
+
+  it('sets output', async () => {
+    mockGetInput({ owner, 'project-number': projectNumber, item });
+    vi.mocked(getItem).mockResolvedValue({
+      id: itemId,
+      type: 'PULL_REQUEST',
+      projectId
+    } as ItemDetails);
+    vi.mocked(editItem).mockResolvedValue();
+
+    await index.editItemAction();
+    expect(editItemActionSpy).toHaveReturned();
+
+    expect(core.setOutput).toHaveBeenCalledTimes(2);
+    expect(core.setOutput).toHaveBeenCalledWith('id', itemId);
+    expect(core.setOutput).toHaveBeenCalledWith('project-id', projectId);
+  });
+});

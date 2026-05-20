@@ -1,0 +1,4 @@
+import { getItemAction } from '../src/get-item.js';
+
+// oxlint-disable-next-line @typescript-eslint/no-floating-promises
+getItemAction();
